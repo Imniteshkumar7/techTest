@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 const EditProfile = () => {
@@ -13,8 +13,22 @@ const EditProfile = () => {
 
     const { id } = useParams();
     const navigate = useNavigate();
+    const location = useLocation();
+    const profileFromList = location.state?.profile;
 
     useEffect(() => {
+        if (profileFromList) {
+            Promise.resolve().then(() => {
+                setName(profileFromList.name || "");
+                setEmail(profileFromList.email || "");
+                setPhone(profileFromList.phone || "");
+                setAddress(profileFromList.address || "");
+                setAge(profileFromList.age || "");
+                setLoading(false);
+            });
+            return;
+        }
+
         axios.get(`https://techtest-a7fl.onrender.com/api/profiles/${id}`)
             .then((response) => {
                 const data = response.data.data || response.data;
@@ -31,7 +45,7 @@ const EditProfile = () => {
             .finally(() => {
                 setLoading(false);
             });
-    }, [id]);
+    }, [id, profileFromList]);
 
     const handleUpdate = (e) => {
         e.preventDefault();

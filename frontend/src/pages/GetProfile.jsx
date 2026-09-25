@@ -25,7 +25,8 @@ const GetProfile = () => {
     }, []);
 
     const handleEdit = (id) => {
-        navigate(`/edit-profile/${id}`);
+        const profile = profiles.find((item) => (item.id || item._id) === id);
+        navigate(`/edit-profile/${id}`, { state: { profile } });
     };
 
     if (loading) return <p>Loading profiles...</p>;
