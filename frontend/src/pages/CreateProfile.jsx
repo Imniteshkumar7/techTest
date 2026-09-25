@@ -20,7 +20,7 @@ const CreateProfile = () => {
             return;
         }
 
-        axios.post("http://localhost:5000/api/profiles", { name, email, phone, address, age })
+        axios.post("https://techtest-a7fl.onrender.com/api/profiles", { name, email, phone, address, age })
             .then(() => {
                 navigate("/profiles");
             })

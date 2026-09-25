@@ -15,7 +15,7 @@ const EditProfile = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/profiles/${id}`)
+        axios.get(`https://techtest-a7fl.onrender.com/api/profiles/${id}`)
             .then((response) => {
                 const data = response.data.data || response.data;
                 setName(data.name || "");
@@ -36,7 +36,7 @@ const EditProfile = () => {
     const handleUpdate = (e) => {
         e.preventDefault();
 
-        axios.put(`http://localhost:5000/api/profiles/${id}`, { name, email, phone, address, age })
+        axios.put(`https://techtest-a7fl.onrender.com/api/profiles/${id}`, { name, email, phone, address, age })
             .then(() => {
                 alert("Profile updated successfully!");
                 navigate("/profiles");
